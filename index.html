@@ -133,6 +133,10 @@ section { padding:5rem 2rem; max-width:900px; margin:0 auto; }
   background:#0d0d14; padding:1.25rem;
   transition:background 0.3s; position:relative; overflow:hidden; min-width:0;
 }
+@media (max-width:600px) {
+  .skills-grid { grid-template-columns:1fr; }
+  .skill-card { padding:1.25rem; }
+}
 .skill-card::before {
   content:''; position:absolute; inset:0;
   background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(139,92,246,0.1) 0%,transparent 60%);
@@ -266,7 +270,7 @@ section { padding:5rem 2rem; max-width:900px; margin:0 auto; }
   cursor:default;
 }
 .tech-logo-item:hover { background:rgba(255,255,255,0.07); border-color:rgba(255,255,255,0.12); transform:translateY(-2px); }
-.tech-logo-item img { width:26px; height:26px; object-fit:contain; flex-shrink:0; }
+.tech-logo-item img { width:28px; height:28px; object-fit:contain; flex-shrink:0; }
 .tech-logo-item span { font-size:9px; color:#64748b; text-align:center; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100%; padding:0 2px; }
 .tech-logo-item:hover span { color:#94a3b8; }
 .tech-logo-item.ti-fallback i { font-size:20px; }
@@ -274,6 +278,13 @@ section { padding:5rem 2rem; max-width:900px; margin:0 auto; }
 .tech-logo-item.ti-fallback.blue i { color:#38bdf8; }
 .tech-logo-item.ti-fallback.green i { color:#34d399; }
 .tech-logo-item.ti-fallback.amber i { color:#fbbf24; }
+@media (max-width:600px) {
+  .tech-logo-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+  .tech-logo-item { padding:12px 4px; gap:6px; }
+  .tech-logo-item img { width:32px; height:32px; }
+  .tech-logo-item span { font-size:10px; }
+  .tech-logo-item.ti-fallback i { font-size:24px; }
+}
 
 .cert-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; }
 .cert-card {
@@ -312,15 +323,68 @@ section { padding:5rem 2rem; max-width:900px; margin:0 auto; }
   background:rgba(52,211,153,0.1); color:#34d399; border-color:rgba(52,211,153,0.25);
 }
 
+.nav-burger {
+  display:none; background:none; border:0.5px solid rgba(255,255,255,0.15);
+  border-radius:6px; color:#94a3b8; padding:6px 10px; cursor:pointer; font-size:18px;
+  line-height:1; transition:color 0.2s, border-color 0.2s;
+}
+.nav-burger:hover { color:#e2e8f0; border-color:rgba(255,255,255,0.3); }
+.mobile-menu {
+  display:none; flex-direction:column;
+  position:fixed; top:57px; left:0; right:0; z-index:99;
+  background:rgba(10,10,15,0.97); backdrop-filter:blur(12px);
+  border-bottom:0.5px solid rgba(255,255,255,0.08);
+  padding:1rem 1.5rem 1.5rem;
+}
+.mobile-menu a {
+  font-size:16px; color:#94a3b8; text-decoration:none;
+  padding:0.75rem 0; border-bottom:0.5px solid rgba(255,255,255,0.05);
+  transition:color 0.2s;
+}
+.mobile-menu a:last-child { border-bottom:none; }
+.mobile-menu a:hover { color:#e2e8f0; }
+.mobile-menu.open { display:flex; }
+@media (max-width:768px) {
+  .nav-burger { display:block; }
+}
 footer { padding:2rem; text-align:center; font-size:12px; color:#1e293b; border-top:0.5px solid rgba(255,255,255,0.04); }
 .trail { position:fixed; pointer-events:none; z-index:9999; border-radius:50%; mix-blend-mode:screen; }
 
-@media (max-width:600px) {
+@media (max-width:768px) {
   .nav-links { display:none; }
   .hero { padding:5rem 1.25rem 3rem; }
   section { padding:3rem 1.25rem; }
   .hero-stats { gap:1.5rem; }
   .contact-card { padding:1.75rem 1.25rem; }
+  .hero h1 { letter-spacing:-1px; }
+  .hero-sub { font-size:16px; }
+  .stat-num { font-size:22px; }
+
+  /* Experience timeline */
+  .exp-timeline { padding-left:1rem; }
+  .exp-meta { gap:6px; }
+  .exp-bullets li { font-size:12px; padding-left:1rem; }
+  .exp-role { font-size:15px; }
+
+  /* Project cards */
+  .project-card { grid-template-columns:1fr; }
+  .project-arrow { display:none; }
+  .project-title { font-size:15px; }
+  .project-desc { font-size:12px; }
+
+  /* Cert cards */
+  .cert-grid { grid-template-columns:1fr; }
+  .cert-card { padding:1rem; }
+  .cert-name { font-size:12px; }
+  .cert-icon { width:40px; height:40px; }
+
+  /* Contact */
+  .contact-links { flex-direction:column; align-items:center; }
+  .contact-link { width:100%; justify-content:center; }
+
+  /* Hero CTA */
+  .hero-cta { flex-direction:column; }
+  .btn-primary, .btn-ghost { justify-content:center; }
 }
 </style>
 </head>
@@ -328,15 +392,27 @@ footer { padding:2rem; text-align:center; font-size:12px; color:#1e293b; border-
 
 <nav class="nav">
   <div class="nav-logo">helmi.dev</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#certifications">Certs</a></li>
-    <li><a href="#contact">Contact</a></li>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about" onclick="closeMenu()">About</a></li>
+    <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+    <li><a href="#experience" onclick="closeMenu()">Experience</a></li>
+    <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+    <li><a href="#certifications" onclick="closeMenu()">Certs</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
   </ul>
+  <button class="nav-burger" id="nav-burger" onclick="toggleMenu()" aria-label="Menu">
+    <i class="ti ti-menu-2"></i>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#skills" onclick="closeMenu()">Skills</a>
+  <a href="#experience" onclick="closeMenu()">Experience</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#certifications" onclick="closeMenu()">Certs</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
 
 <section class="hero" id="about">
   <div class="hero-bg"></div>
@@ -656,7 +732,7 @@ footer { padding:2rem; text-align:center; font-size:12px; color:#1e293b; border-
         <i class="ti ti-brand-linkedin" aria-hidden="true"></i>
         LinkedIn
       </a>
-      <a class="contact-link" href="https://github.com/" target="_blank" rel="noopener">
+      <a class="contact-link" href="https://github.com/samuraiumm" target="_blank" rel="noopener">
         <i class="ti ti-brand-github" aria-hidden="true"></i>
         GitHub
       </a>
@@ -724,6 +800,19 @@ document.querySelectorAll('.skill-card').forEach(card => {
     card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
   });
 });
+
+function toggleMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const burger = document.getElementById('nav-burger');
+  menu.classList.toggle('open');
+  burger.querySelector('i').className = menu.classList.contains('open') ? 'ti ti-x' : 'ti ti-menu-2';
+}
+function closeMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const burger = document.getElementById('nav-burger');
+  menu.classList.remove('open');
+  burger.querySelector('i').className = 'ti ti-menu-2';
+}
 
 const trailColors = ['rgba(167,139,250,0.5)', 'rgba(56,189,248,0.4)', 'rgba(52,211,153,0.3)'];
 let trailCount = 0;
