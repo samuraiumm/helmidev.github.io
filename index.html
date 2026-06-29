@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Helmi — Full-Stack Developer</title>
+<meta name="description" content="Muhammad Helmi bin Osman — Full-Stack Developer at Laman Teknologi Sdn Bhd. Laravel, React, TypeScript, and cloud infrastructure. Based in Selangor, Malaysia.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:#0a0a0f; color:#e2e8f0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; line-height:1.6; overflow-x:hidden; }
+
+.nav {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,10,15,0.85); backdrop-filter:blur(12px);
+  border-bottom:0.5px solid rgba(255,255,255,0.08);
+  padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center;
+  transform:translateY(-100%); animation:slideDown 0.6s 0.2s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+@keyframes slideDown { to { transform:translateY(0); } }
+.nav-logo {
+  font-size:18px; font-weight:600; letter-spacing:-0.5px;
+  background:linear-gradient(135deg,#a78bfa,#38bdf8);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+.nav-links { display:flex; gap:1.5rem; list-style:none; }
+.nav-links a { font-size:13px; color:#94a3b8; text-decoration:none; transition:color 0.2s; }
+.nav-links a:hover { color:#e2e8f0; }
+
+.hero {
+  min-height:100vh; display:flex; flex-direction:column;
+  justify-content:center; padding:6rem 2rem 4rem;
+  position:relative; overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 50%,rgba(139,92,246,0.12) 0%,transparent 70%),
+    radial-gradient(ellipse 400px 300px at 80% 30%,rgba(56,189,248,0.08) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-grid {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+  background-size:60px 60px; pointer-events:none;
+}
+.orb { position:absolute; border-radius:50%; pointer-events:none; filter:blur(60px); }
+.orb1 { width:300px; height:300px; background:rgba(139,92,246,0.08); top:20%; left:5%; animation:float1 8s ease-in-out infinite; }
+.orb2 { width:200px; height:200px; background:rgba(56,189,248,0.06); top:60%; right:10%; animation:float2 10s ease-in-out infinite; }
+.orb3 { width:150px; height:150px; background:rgba(52,211,153,0.05); bottom:20%; left:40%; animation:float3 7s ease-in-out infinite; }
+@keyframes float1 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(20px,-30px);} }
+@keyframes float2 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-15px,25px);} }
+@keyframes float3 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(10px,-20px);} }
+
+.cursor { display:inline-block; width:3px; height:0.9em; background:#a78bfa; margin-left:3px; vertical-align:text-bottom; animation:blink 1s step-end infinite; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+.hero-content { position:relative; max-width:800px; }
+.hero-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 14px; background:rgba(139,92,246,0.1);
+  border:0.5px solid rgba(139,92,246,0.3); border-radius:100px;
+  font-size:12px; color:#a78bfa; margin-bottom:1.5rem;
+  opacity:0; animation:fadeUp 0.6s 0.4s ease forwards;
+}
+.dot { width:6px; height:6px; background:#a78bfa; border-radius:50%; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
+
+.hero h1 {
+  font-size:clamp(36px,6vw,64px); font-weight:700;
+  line-height:1.1; letter-spacing:-2px; margin-bottom:1rem;
+  opacity:0; animation:fadeUp 0.7s 0.6s ease forwards;
+}
+.hero h1 span {
+  background:linear-gradient(135deg,#a78bfa 0%,#38bdf8 50%,#34d399 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-size:200% 200%; animation:gradientShift 4s ease infinite;
+}
+@keyframes gradientShift { 0%,100%{background-position:0% 50%;} 50%{background-position:100% 50%;} }
+
+.hero-sub { font-size:18px; color:#64748b; max-width:520px; margin-bottom:2rem; line-height:1.7; opacity:0; animation:fadeUp 0.7s 0.8s ease forwards; }
+.hero-sub strong { color:#94a3b8; font-weight:500; }
+
+.hero-cta { display:flex; gap:12px; flex-wrap:wrap; opacity:0; animation:fadeUp 0.7s 1s ease forwards; }
+
+.btn-primary {
+  padding:12px 24px; background:linear-gradient(135deg,#7c3aed,#2563eb);
+  border:none; border-radius:8px; color:#fff; font-size:14px; font-weight:500;
+  cursor:pointer; display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(124,58,237,0.35); }
+.btn-primary:active { transform:translateY(0); }
+
+.btn-ghost {
+  padding:12px 24px; background:transparent;
+  border:0.5px solid rgba(255,255,255,0.15); border-radius:8px;
+  color:#94a3b8; font-size:14px; font-weight:500;
+  cursor:pointer; display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+  transition:border-color 0.2s,color 0.2s,transform 0.2s;
+}
+.btn-ghost:hover { border-color:rgba(255,255,255,0.3); color:#e2e8f0; transform:translateY(-2px); }
+
+.hero-stats {
+  display:flex; gap:2rem; margin-top:3rem; padding-top:2rem;
+  border-top:0.5px solid rgba(255,255,255,0.06); flex-wrap:wrap;
+  opacity:0; animation:fadeUp 0.7s 1.2s ease forwards;
+}
+.stat-num {
+  font-size:28px; font-weight:700; line-height:1;
+  background:linear-gradient(135deg,#a78bfa,#38bdf8);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+.stat-label { font-size:12px; color:#475569; margin-top:4px; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+
+section { padding:5rem 2rem; max-width:900px; margin:0 auto; }
+.section-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:3px; color:#a78bfa; margin-bottom:0.5rem; }
+.section-title { font-size:clamp(24px,4vw,36px); font-weight:700; letter-spacing:-1px; margin-bottom:0.75rem; color:#f1f5f9; }
+.section-desc { font-size:15px; color:#64748b; margin-bottom:3rem; max-width:500px; line-height:1.7; }
+
+/* SKILLS */
+.skills-grid {
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:1px; background:rgba(255,255,255,0.06);
+  border:0.5px solid rgba(255,255,255,0.06); border-radius:16px; overflow:hidden;
+}
+.skill-card {
+  background:#0d0d14; padding:1.25rem;
+  transition:background 0.3s; position:relative; overflow:hidden; min-width:0;
+}
+.skill-card::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(139,92,246,0.1) 0%,transparent 60%);
+  opacity:0; transition:opacity 0.3s;
+}
+.skill-card:hover::before { opacity:1; }
+.skill-card:hover { background:#0f0f1a; }
+.skill-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:1rem; transition:transform 0.3s; }
+.skill-card:hover .skill-icon { transform:scale(1.1) rotate(-5deg); }
+.skill-icon.purple { background:rgba(139,92,246,0.12); color:#a78bfa; }
+.skill-icon.blue { background:rgba(56,189,248,0.12); color:#38bdf8; }
+.skill-icon.green { background:rgba(52,211,153,0.12); color:#34d399; }
+.skill-icon.amber { background:rgba(251,191,36,0.12); color:#fbbf24; }
+.skill-icon.pink { background:rgba(236,72,153,0.12); color:#ec4899; }
+.skill-name { font-size:14px; font-weight:600; color:#e2e8f0; margin-bottom:0.5rem; }
+.skill-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.tag { font-size:11px; padding:2px 8px; background:rgba(255,255,255,0.05); border:0.5px solid rgba(255,255,255,0.08); border-radius:4px; color:#64748b; transition:all 0.2s; }
+.skill-card:hover .tag { border-color:rgba(139,92,246,0.2); color:#94a3b8; }
+
+/* EXPERIENCE */
+.exp-timeline { position:relative; padding-left:1.5rem; }
+.exp-timeline::before { content:''; position:absolute; left:0; top:8px; bottom:8px; width:1px; background:rgba(255,255,255,0.06); }
+
+.exp-item { position:relative; margin-bottom:2.5rem; }
+.exp-item:last-child { margin-bottom:0; }
+.exp-dot {
+  position:absolute; left:-1.5rem; top:6px;
+  width:9px; height:9px; border-radius:50%;
+  background:linear-gradient(135deg,#7c3aed,#2563eb);
+  transform:translateX(-4px);
+  box-shadow:0 0 0 3px rgba(124,58,237,0.15);
+}
+.exp-current .exp-dot { animation:dotPulse 2s infinite; }
+@keyframes dotPulse {
+  0%,100% { box-shadow:0 0 0 3px rgba(124,58,237,0.15); }
+  50% { box-shadow:0 0 0 6px rgba(124,58,237,0.05); }
+}
+
+.exp-header { margin-bottom:0.5rem; }
+.exp-role { font-size:16px; font-weight:600; color:#f1f5f9; }
+.exp-company {
+  font-size:13px; color:#a78bfa; font-weight:500; margin-top:2px;
+  display:flex; align-items:center; gap:6px;
+}
+.exp-meta { font-size:12px; color:#475569; margin-top:4px; display:flex; gap:12px; flex-wrap:wrap; }
+.exp-badge {
+  font-size:10px; padding:2px 8px; border-radius:100px; font-weight:600;
+  background:rgba(52,211,153,0.1); color:#34d399; border:0.5px solid rgba(52,211,153,0.2);
+}
+
+.exp-desc { font-size:13px; color:#64748b; line-height:1.7; margin:0.75rem 0; }
+
+.exp-bullets { list-style:none; margin:0.75rem 0; }
+.exp-bullets li {
+  font-size:13px; color:#64748b; line-height:1.6; padding:0.3rem 0 0.3rem 1.25rem;
+  position:relative; border-bottom:0.5px solid rgba(255,255,255,0.03);
+}
+.exp-bullets li:last-child { border-bottom:none; }
+.exp-bullets li::before { content:'→'; position:absolute; left:0; color:#7c3aed; font-size:11px; top:0.35rem; }
+
+.exp-stack { display:flex; flex-wrap:wrap; gap:6px; margin-top:0.75rem; }
+.exp-tag { font-size:10px; padding:2px 8px; background:rgba(139,92,246,0.08); border:0.5px solid rgba(139,92,246,0.2); border-radius:4px; color:#a78bfa; }
+
+/* PROJECTS */
+.projects-grid { display:grid; gap:1rem; }
+.project-card {
+  background:#0d0d14; border:0.5px solid rgba(255,255,255,0.06);
+  border-radius:16px; padding:1.75rem;
+  display:grid; grid-template-columns:1fr auto; gap:1rem; align-items:start;
+  cursor:pointer; position:relative; overflow:hidden;
+  transition:border-color 0.3s,background 0.3s,transform 0.3s,box-shadow 0.3s;
+}
+.project-card::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+  background:linear-gradient(180deg,#7c3aed,#2563eb);
+  transform:scaleY(0); transform-origin:top;
+  transition:transform 0.3s cubic-bezier(0.22,1,0.36,1);
+  border-radius:3px 0 0 3px;
+}
+.project-card:hover { border-color:rgba(139,92,246,0.3); background:#0f0f1a; transform:translateX(4px); box-shadow:-4px 0 24px rgba(124,58,237,0.1); }
+.project-card:hover::before { transform:scaleY(1); }
+.project-badge { font-size:10px; padding:3px 10px; border-radius:100px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; }
+.badge-live { background:rgba(52,211,153,0.1); color:#34d399; border:0.5px solid rgba(52,211,153,0.2); }
+.project-title { font-size:17px; font-weight:600; color:#f1f5f9; margin-bottom:0.4rem; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.project-desc { font-size:13px; color:#64748b; line-height:1.6; margin-bottom:1rem; }
+.project-stack { display:flex; gap:6px; flex-wrap:wrap; }
+.stack-tag { font-size:11px; padding:3px 10px; background:rgba(139,92,246,0.08); border:0.5px solid rgba(139,92,246,0.2); border-radius:4px; color:#a78bfa; }
+.project-arrow { font-size:20px; color:#334155; transition:color 0.2s,transform 0.3s; }
+.project-card:hover .project-arrow { color:#a78bfa; transform:translate(4px,-4px); }
+
+/* SCROLL REVEAL */
+.reveal { opacity:0; transform:translateY(30px); transition:opacity 0.7s ease,transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-delay-1 { transition-delay:0.1s; }
+.reveal-delay-2 { transition-delay:0.2s; }
+.reveal-delay-3 { transition-delay:0.3s; }
+
+/* CONTACT */
+.contact-card {
+  background:#0d0d14; border:0.5px solid rgba(255,255,255,0.06);
+  border-radius:20px; padding:2.5rem; text-align:center; position:relative; overflow:hidden;
+  transition:border-color 0.3s;
+}
+.contact-card:hover { border-color:rgba(139,92,246,0.2); }
+.contact-glow {
+  position:absolute; top:-50%; left:50%; transform:translateX(-50%);
+  width:300px; height:200px;
+  background:radial-gradient(ellipse,rgba(139,92,246,0.15) 0%,transparent 70%);
+  pointer-events:none;
+}
+.contact-card h3 { font-size:24px; font-weight:700; color:#f1f5f9; margin-bottom:0.5rem; position:relative; }
+.contact-card p { font-size:14px; color:#64748b; margin-bottom:2rem; position:relative; }
+.contact-links { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; position:relative; }
+.contact-link {
+  padding:10px 20px; border:0.5px solid rgba(255,255,255,0.1);
+  border-radius:8px; color:#94a3b8; font-size:13px; text-decoration:none;
+  display:inline-flex; align-items:center; gap:8px;
+  transition:all 0.25s; background:rgba(255,255,255,0.02);
+}
+.contact-link:hover { border-color:rgba(139,92,246,0.4); color:#a78bfa; background:rgba(139,92,246,0.05); transform:translateY(-2px); }
+
+/* CERTIFICATIONS */
+.tech-logo-grid {
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; margin-top:0.75rem;
+}
+.tech-logo-item {
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  padding:10px 4px; border-radius:8px; min-width:0;
+  background:rgba(255,255,255,0.03); border:0.5px solid rgba(255,255,255,0.06);
+  transition:background 0.2s, border-color 0.2s, transform 0.2s;
+  cursor:default;
+}
+.tech-logo-item:hover { background:rgba(255,255,255,0.07); border-color:rgba(255,255,255,0.12); transform:translateY(-2px); }
+.tech-logo-item img { width:26px; height:26px; object-fit:contain; flex-shrink:0; }
+.tech-logo-item span { font-size:9px; color:#64748b; text-align:center; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100%; padding:0 2px; }
+.tech-logo-item:hover span { color:#94a3b8; }
+.tech-logo-item.ti-fallback i { font-size:20px; }
+.tech-logo-item.ti-fallback.purple i { color:#a78bfa; }
+.tech-logo-item.ti-fallback.blue i { color:#38bdf8; }
+.tech-logo-item.ti-fallback.green i { color:#34d399; }
+.tech-logo-item.ti-fallback.amber i { color:#fbbf24; }
+
+.cert-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; }
+.cert-card {
+  background:#0d0d14; border:0.5px solid rgba(255,255,255,0.06);
+  border-radius:14px; padding:1.25rem 1.5rem;
+  display:flex; align-items:center; gap:1rem;
+  transition:border-color 0.3s,background 0.3s,transform 0.3s;
+  position:relative; overflow:hidden;
+}
+.cert-card::before {
+  content:""; position:absolute; inset:0;
+  background:radial-gradient(circle at 0% 50%,rgba(139,92,246,0.06) 0%,transparent 60%);
+  opacity:0; transition:opacity 0.3s;
+}
+.cert-card:hover::before { opacity:1; }
+.cert-card:hover { border-color:rgba(139,92,246,0.25); background:#0f0f1a; transform:translateY(-2px); }
+.cert-icon {
+  width:48px; height:48px; border-radius:12px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; padding:6px; background:rgba(255,255,255,0.05);
+}
+.cert-icon.aws { border:0.5px solid rgba(255,153,0,0.25); }
+.cert-icon.laravel { border:0.5px solid rgba(255,69,65,0.25); }
+.cert-icon.oracle { border:0.5px solid rgba(249,115,22,0.25); }
+.cert-icon img { width:100%; height:100%; object-fit:contain; }
+.cert-body { flex:1; min-width:0; }
+.cert-name { font-size:13px; font-weight:600; color:#e2e8f0; line-height:1.4; margin-bottom:3px; }
+.cert-issuer { font-size:12px; color:#64748b; margin-bottom:4px; }
+.cert-date { font-size:11px; color:#475569; display:flex; align-items:center; gap:4px; }
+.cert-date i { font-size:12px; }
+.cert-badge {
+  font-size:10px; padding:3px 10px; border-radius:100px; font-weight:600; white-space:nowrap;
+  background:rgba(139,92,246,0.1); color:#a78bfa; border:0.5px solid rgba(139,92,246,0.25);
+}
+.cert-badge.verified {
+  background:rgba(52,211,153,0.1); color:#34d399; border-color:rgba(52,211,153,0.25);
+}
+
+footer { padding:2rem; text-align:center; font-size:12px; color:#1e293b; border-top:0.5px solid rgba(255,255,255,0.04); }
+.trail { position:fixed; pointer-events:none; z-index:9999; border-radius:50%; mix-blend-mode:screen; }
+
+@media (max-width:600px) {
+  .nav-links { display:none; }
+  .hero { padding:5rem 1.25rem 3rem; }
+  section { padding:3rem 1.25rem; }
+  .hero-stats { gap:1.5rem; }
+  .contact-card { padding:1.75rem 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">helmi.dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="about">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="dot"></div>
+      Currently @ Laman Teknologi Sdn Bhd · Open to freelance
+    </div>
+    <h1>Muhammad Helmi<br><span id="typed-title"></span><span class="cursor"></span></h1>
+    <p class="hero-sub">
+      Building <strong>scalable web platforms</strong> end-to-end — from pixel-perfect UIs to production infrastructure. Based in Selangor, Malaysia.
+    </p>
+    <div class="hero-cta">
+      <a class="btn-primary" href="#projects">
+        <i class="ti ti-briefcase" aria-hidden="true"></i>
+        View my work
+      </a>
+      <a class="btn-ghost" href="#contact">
+        <i class="ti ti-mail" aria-hidden="true"></i>
+        Get in touch
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num" data-count="1" data-suffix="yr">0</div>
+        <div class="stat-label">At current role</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-count="20">0</div>
+        <div class="stat-label">Technologies used</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-count="6">0</div>
+        <div class="stat-label">User roles architected</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" style="padding-top:2rem;">
+  <p class="section-label reveal">Expertise</p>
+  <h2 class="section-title reveal reveal-delay-1">Tech stack</h2>
+  <p class="section-desc reveal reveal-delay-2">Full coverage from UI to server — everything I use day-to-day.</p>
+  <div class="skills-grid reveal reveal-delay-3">
+
+    <div class="skill-card">
+      <div class="skill-icon purple"><i class="ti ti-layout" aria-hidden="true"></i></div>
+      <div class="skill-name">Frontend</div>
+      <div class="tech-logo-grid">
+        <div class="tech-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React"><span>React</span></div>
+        <div class="tech-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" alt="TypeScript"><span>TypeScript</span></div>
+        <div class="tech-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" alt="Tailwind"><span>Tailwind</span></div>
+        <div class="tech-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Vitejs-logo.svg" alt="Vite"><span>Vite</span></div>
+        <div class="tech-logo-item ti-fallback purple"><i class="ti ti-route" aria-hidden="true"></i><span>Inertia.js</span></div>
+        <div class="tech-logo-item ti-fallback purple"><i class="ti ti-components" aria-hidden="true"></i><span>Zustand</span></div>
+        <div class="tech-logo-item ti-fallback purple"><i class="ti ti-refresh" aria-hidden="true"></i><span>React Query</span></div>
+        <div class="tech-logo-item ti-fallback purple"><i class="ti ti-shield-check" aria-hidden="true"></i><span>Zod</span></div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon blue"><i class="ti ti-server" aria-hidden="true"></i></div>
+      <div class="skill-name">Backend</div>
+      <div class="tech-logo-grid">
+        <div class="tech-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Laravel.svg" alt="Laravel"><span>Laravel</span></div>
+        <div class="tech-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg" alt="PHP"><span>PHP</span></div>
+        <div class="tech-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/MySQL_textlogo.svg" alt="MySQL"><span>MySQL</span></div>
+        <div class="tech-logo-item ti-fallback blue"><i class="ti ti-api" aria-hidden="true"></i><span>REST API</span></div>
+        <div class="tech-logo-item ti-fallback blue"><i class="ti ti-antenna" aria-hidden="true"></i><span>WebSockets</span></div>
+        <div class="tech-logo-item ti-fallback blue"><i class="ti ti-broadcast" aria-hidden="true"></i><span>Reverb</span></div>
+        <div class="tech-logo-item ti-fallback blue"><i class="ti ti-lock" aria-hidden="true"></i><span>Sanctum</span></div>
+        <div class="tech-logo-item ti-fallback blue"><i class="ti ti-users" aria-hidden="true"></i><span>Spatie</span></div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon green"><i class="ti ti-cloud" aria-hidden="true"></i></div>
+      <div class="skill-name">DevOps &amp; Infra</div>
+      <div class="tech-logo-grid">
+        <div class="tech-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS"><span>AWS</span></div>
+        <div class="tech-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub"><span>GitHub</span></div>
+        <div class="tech-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/NewTux.svg" alt="Linux"><span>Linux</span></div>
+        <div class="tech-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg" alt="Docker"><span>Docker</span></div>
+        <div class="tech-logo-item ti-fallback green"><i class="ti ti-server-2" aria-hidden="true"></i><span>cPanel</span></div>
+        <div class="tech-logo-item ti-fallback green"><i class="ti ti-terminal" aria-hidden="true"></i><span>SSH</span></div>
+        <div class="tech-logo-item ti-fallback green"><i class="ti ti-shield" aria-hidden="true"></i><span>Cloudflare</span></div>
+        <div class="tech-logo-item ti-fallback green"><i class="ti ti-mail-fast" aria-hidden="true"></i><span>SMTP</span></div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon amber"><i class="ti ti-plug" aria-hidden="true"></i></div>
+      <div class="skill-name">Libraries &amp; Tools</div>
+      <div class="tech-logo-grid">
+        <div class="tech-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Chart.js_logo.svg" alt="Chart.js"><span>Chart.js</span></div>
+        <div class="tech-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Git-logo.svg" alt="Git"><span>Git</span></div>
+        <div class="tech-logo-item ti-fallback amber"><i class="ti ti-chart-bar" aria-hidden="true"></i><span>ApexCharts</span></div>
+        <div class="tech-logo-item ti-fallback amber"><i class="ti ti-chart-line" aria-hidden="true"></i><span>Recharts</span></div>
+        <div class="tech-logo-item ti-fallback amber"><i class="ti ti-file-type-pdf" aria-hidden="true"></i><span>DomPDF</span></div>
+        <div class="tech-logo-item ti-fallback amber"><i class="ti ti-robot" aria-hidden="true"></i><span>Puppeteer</span></div>
+        <div class="tech-logo-item ti-fallback amber"><i class="ti ti-table" aria-hidden="true"></i><span>AG Grid</span></div>
+        <div class="tech-logo-item ti-fallback amber"><i class="ti ti-file-spreadsheet" aria-hidden="true"></i><span>Excel</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+  <p class="section-label reveal">Career</p>
+  <h2 class="section-title reveal reveal-delay-1">Experience</h2>
+  <p class="section-desc reveal reveal-delay-2">Building real enterprise systems from day one.</p>
+
+  <div class="exp-timeline reveal reveal-delay-3">
+
+    <div class="exp-item exp-current">
+      <div class="exp-dot"></div>
+      <div class="exp-header">
+        <div class="exp-role">Information Technology Executive</div>
+        <div class="exp-company">
+          <i class="ti ti-building" aria-hidden="true"></i>
+          Laman Teknologi Sdn Bhd
+        </div>
+        <div class="exp-meta">
+          <span>Jun 2025 – Present</span>
+          <span>Full-time · On-site</span>
+          <span>Seri Kembangan, Selangor</span>
+          <span class="exp-badge">Current</span>
+        </div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Developed comprehensive PMO system supporting strategic planning and initiative tracking for MTA</li>
+        <li>Architected multi-role authorisation system for 6 user types (SuperAdmin, Admin, Champion, AC, WGM, MTA) with granular permissions using Spatie</li>
+        <li>Implemented real-time notifications using Laravel Reverb and WebSockets</li>
+        <li>Built interactive dashboards with Chart.js, ApexCharts, and Recharts displaying strategic objectives and performance metrics</li>
+        <li>Integrated PDF generation and Excel import/export using DomPDF, Puppeteer, and Maatwebsite Excel</li>
+        <li>Designed RESTful APIs with Laravel Sanctum authentication for secure role-based data access</li>
+        <li>Deployed and managed applications on production servers via cPanel and SSH, configuring SSL and databases</li>
+      </ul>
+      <div class="exp-stack">
+        <span class="exp-tag">Laravel 12</span>
+        <span class="exp-tag">React</span>
+        <span class="exp-tag">TypeScript</span>
+        <span class="exp-tag">Inertia.js</span>
+        <span class="exp-tag">MySQL</span>
+        <span class="exp-tag">WebSockets</span>
+        <span class="exp-tag">Tailwind CSS</span>
+        <span class="exp-tag">cPanel</span>
+        <span class="exp-tag">Spatie</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-header">
+        <div class="exp-role">Software Developer</div>
+        <div class="exp-company">
+          <i class="ti ti-building" aria-hidden="true"></i>
+          Laman Teknologi Sdn Bhd
+        </div>
+        <div class="exp-meta">
+          <span>Mar 2025 – Jun 2025</span>
+          <span>Internship · 4 months</span>
+          <span>Seri Kembangan, Selangor</span>
+        </div>
+      </div>
+      <div class="exp-desc">
+        Web development internship where I began building client-facing systems, gained hands-on exposure to Laravel and full-stack workflows, and transitioned directly into a full-time role upon completion.
+      </div>
+      <div class="exp-stack">
+        <span class="exp-tag">Laravel</span>
+        <span class="exp-tag">PHP</span>
+        <span class="exp-tag">MySQL</span>
+        <span class="exp-tag">Tailwind CSS</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="projects">
+  <p class="section-label reveal">Work</p>
+  <h2 class="section-title reveal reveal-delay-1">Selected projects</h2>
+  <p class="section-desc reveal reveal-delay-2">Enterprise platforms built and shipped in production.</p>
+  <div class="projects-grid">
+
+    <a class="project-card reveal" href="https://events-v2.takaful4all.org/" target="_blank" rel="noopener" style="text-decoration:none;">
+      <div>
+        <div class="project-title">
+          Takaful4All Events Platform
+          <span class="project-badge badge-live">Live</span>
+        </div>
+        <div class="project-desc">Full-featured event registration platform for Malaysian Takaful Association — QR check-in, email broadcasts, promo codes, affiliate system, PDF ticket generation, and PageSpeed-optimised to 69+ on mobile.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Laravel 12</span>
+          <span class="stack-tag">React</span>
+          <span class="stack-tag">TypeScript</span>
+          <span class="stack-tag">Inertia.js</span>
+          <span class="stack-tag">MailerSend</span>
+          <span class="stack-tag">Cloudflare</span>
+        </div>
+      </div>
+      <i class="ti ti-arrow-up-right project-arrow" aria-hidden="true"></i>
+    </a>
+
+    <a class="project-card reveal reveal-delay-1" href="https://hijrah27.takaful4all.org/login" target="_blank" rel="noopener" style="text-decoration:none;">
+      <div>
+        <div class="project-title">
+          PMO Hijrah27 Initiative Tracker
+          <span class="project-badge badge-live">Live</span>
+        </div>
+        <div class="project-desc">Multi-role initiative management system for MTA — 6-level RBAC, real-time notifications via WebSockets, multi-level approval workflows, interactive dashboards, and auto-generated PDF reports.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Laravel</span>
+          <span class="stack-tag">Spatie Permission</span>
+          <span class="stack-tag">Laravel Reverb</span>
+          <span class="stack-tag">Chart.js</span>
+          <span class="stack-tag">DomPDF</span>
+        </div>
+      </div>
+      <i class="ti ti-arrow-up-right project-arrow" aria-hidden="true"></i>
+    </a>
+
+    <a class="project-card reveal reveal-delay-2" href="https://chatbot.lamanteknologi.com.my/" target="_blank" rel="noopener" style="text-decoration:none;">
+      <div>
+        <div class="project-title">
+          AI Chatbot Platform
+          <span class="project-badge badge-live">Live</span>
+        </div>
+        <div class="project-desc">Customer-facing chatbot for Laman Teknologi — Laravel backend, Vite asset pipeline, Cloudflare WAF integration, and production-hardened MySQL configuration on shared hosting.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Laravel</span>
+          <span class="stack-tag">Vite</span>
+          <span class="stack-tag">cPanel</span>
+          <span class="stack-tag">Cloudflare</span>
+          <span class="stack-tag">MySQL</span>
+        </div>
+      </div>
+      <i class="ti ti-arrow-up-right project-arrow" aria-hidden="true"></i>
+    </a>
+
+  </div>
+</section>
+
+<section id="certifications">
+  <p class="section-label reveal">Credentials</p>
+  <h2 class="section-title reveal reveal-delay-1">Licences &amp; certifications</h2>
+  <p class="section-desc reveal reveal-delay-2">Verified credentials from AWS, Oracle, and industry trainers.</p>
+  <div class="cert-grid reveal reveal-delay-3">
+
+    <div class="cert-card">
+      <div class="cert-icon aws">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS logo">
+      </div>
+      <div class="cert-body">
+        <div class="cert-name">AWS Cloud Practitioner Essentials</div>
+        <div class="cert-issuer">Amazon Web Services (AWS)</div>
+        <div class="cert-date"><i class="ti ti-calendar" aria-hidden="true"></i> Issued Apr 2026</div>
+      </div>
+      <div class="cert-badge verified">Verified</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-icon laravel">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Laravel.svg" alt="Laravel logo">
+      </div>
+      <div class="cert-body">
+        <div class="cert-name">Laravel 12 PHP Framework Intermediate Training</div>
+        <div class="cert-issuer">Azbahri Technologies</div>
+        <div class="cert-date"><i class="ti ti-calendar" aria-hidden="true"></i> Issued Aug 2025</div>
+      </div>
+      <div class="cert-badge verified">Verified</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-icon oracle">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg" alt="Oracle logo">
+      </div>
+      <div class="cert-body">
+        <div class="cert-name">Oracle Academy — Database Programming with SQL</div>
+        <div class="cert-issuer">Oracle</div>
+        <div class="cert-date"><i class="ti ti-calendar" aria-hidden="true"></i> Issued Jul 2023</div>
+      </div>
+      <div class="cert-badge">Certified</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-icon oracle">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg" alt="Oracle logo">
+      </div>
+      <div class="cert-body">
+        <div class="cert-name">Oracle Academy — Database Design</div>
+        <div class="cert-issuer">Oracle</div>
+        <div class="cert-date"><i class="ti ti-calendar" aria-hidden="true"></i> Issued Jun 2023</div>
+      </div>
+      <div class="cert-badge">Certified</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact" style="padding-bottom:6rem;">
+  <div class="contact-card reveal">
+    <div class="contact-glow"></div>
+    <h3>Let's build something.</h3>
+    <p>Open to freelance projects, consulting, and collaborations. Based in Selangor, Malaysia.</p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:helmi@lamanteknologi.com.my">
+        <i class="ti ti-mail" aria-hidden="true"></i>
+        Email me
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/muhammad-helmi-osman-2a1372344/" target="_blank" rel="noopener">
+        <i class="ti ti-brand-linkedin" aria-hidden="true"></i>
+        LinkedIn
+      </a>
+      <a class="contact-link" href="https://github.com/" target="_blank" rel="noopener">
+        <i class="ti ti-brand-github" aria-hidden="true"></i>
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Designed &amp; built by Muhammad Helmi bin Osman &nbsp;·&nbsp; Selangor, Malaysia &nbsp;·&nbsp; © 2026
+</footer>
+
+<script>
+const titles = ['Full-Stack Developer', 'Laravel Engineer', 'React Developer', 'DevOps Enthusiast'];
+let ti = 0, ci = 0, deleting = false;
+const typedEl = document.getElementById('typed-title');
+function type() {
+  const t = titles[ti];
+  if (!deleting) {
+    typedEl.textContent = t.slice(0, ++ci);
+    if (ci === t.length) { deleting = true; setTimeout(type, 1800); return; }
+  } else {
+    typedEl.textContent = t.slice(0, --ci);
+    if (ci === 0) { deleting = false; ti = (ti + 1) % titles.length; }
+  }
+  setTimeout(type, deleting ? 50 : 80);
+}
+setTimeout(type, 1400);
+
+function countUp(el, target, suffix) {
+  let n = 0;
+  const step = target / 40;
+  const interval = setInterval(() => {
+    n = Math.min(n + step, target);
+    el.textContent = Math.floor(n) + (suffix || '+');
+    if (n >= target) clearInterval(interval);
+  }, 40);
+}
+let counted = false;
+function tryCount() {
+  if (counted) return;
+  const stats = document.querySelector('.hero-stats');
+  if (!stats) return;
+  if (stats.getBoundingClientRect().top < window.innerHeight) {
+    counted = true;
+    document.querySelectorAll('.stat-num[data-count]').forEach(el => {
+      countUp(el, parseInt(el.dataset.count), el.dataset.suffix);
+    });
+  }
+}
+
+const reveals = document.querySelectorAll('.reveal');
+function checkReveal() {
+  reveals.forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight - 60) el.classList.add('visible');
+  });
+  tryCount();
+}
+window.addEventListener('scroll', checkReveal, { passive: true });
+checkReveal();
+
+document.querySelectorAll('.skill-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+    card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+  });
+});
+
+const trailColors = ['rgba(167,139,250,0.5)', 'rgba(56,189,248,0.4)', 'rgba(52,211,153,0.3)'];
+let trailCount = 0;
+document.addEventListener('mousemove', e => {
+  const d = document.createElement('div');
+  d.className = 'trail';
+  const size = Math.random() * 8 + 4;
+  d.style.cssText = `left:${e.clientX - size/2}px;top:${e.clientY - size/2}px;width:${size}px;height:${size}px;background:${trailColors[trailCount++ % 3]};transition:all 0.6s ease;`;
+  document.body.appendChild(d);
+  setTimeout(() => { d.style.opacity = '0'; d.style.transform = 'scale(0)'; }, 50);
+  setTimeout(() => d.remove(), 650);
+});
+</script>
+</body>
+</html>
